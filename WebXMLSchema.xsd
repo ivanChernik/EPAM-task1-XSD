@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.epam.tc.com/ConfigurationFile"
+	xmlns:cf="http://www.epam.tc.com/ConfigurationFile">
+	<element name="web-app">
+		<complexType>
+			<sequence>
+				<choice minOccurs="0" maxOccurs="unbounded">
+					<element name="display-name" type="string" />
+					<element name="welcome-file-list" type="cf:WelcomeFileList" />
+					<element name="filter" type="cf:Filter" />
+					<element name="filter-mapping" type="cf:FilterMapping" />
+					<element name="listener" type="cf:Listener" />
+					<element name="servlet" type="cf:Servlet" />
+					<element name="servlet-mapping" type="cf:ServletMapping" />
+					<element name="error-page" type="cf:ErrorPage" />
+				</choice>
+			</sequence>
+			<attribute name="id" type="string" />
+			<attribute name="version" type="string" />
+		</complexType>
+	</element>
+	
+	
+	<!-- Определения типов -->
+	<complexType name="WelcomeFileList">
+		<sequence>
+			<element name="welcome-file" type="string" minOccurs="1"
+				maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	<complexType name="Filter">
+		<sequence>
+			<element name="filter-name" />
+			<element name="filter-class" type="string"/>
+			<element name="init-param" minOccurs="1" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	<complexType name="FilterMapping">
+		<sequence>
+			<element name="filter-name" />
+			<element name="url-pattern" />
+			<element name="dispatcher" type="string" />
+		</sequence>
+	</complexType>
+	<complexType name="Listener">
+		<sequence>
+			<element name="listener-class" type="string" />
+		</sequence>
+	</complexType>
+	<complexType name="Servlet">
+		<sequence>
+			<element name="servlet-name"/>
+			<element name="servlet-class" type="string" />
+			<element name="init-param" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	<complexType name="ServletMapping">
+		<sequence>
+			<element name="servlet-name" />
+			<element name="url-pattern" />
+		</sequence>
+	</complexType>
+	<complexType name="ErrorPage">
+		<sequence>
+			<choice>
+				<element name="exception-code" type="unsignedInt" />
+				<element name="exception-type" type="string" />
+			</choice>
+			<element name="location" type="string" />
+		</sequence>
+	</complexType>
+	<!-- Определения элементов -->
+	<element name="init-param">
+		<complexType>
+			<sequence>
+				<element name="param-name" type="string"/>
+				<element name="param-value" type="string"/>
+			</sequence>
+		</complexType>
+	</element>
+	<element name="servlet-name" type="string" />
+	<element name="url-pattern" type="string" />
+	<element name="filter-name" type="string" />
+</schema>
